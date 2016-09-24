@@ -24,7 +24,7 @@ def train(X_train, y_train, reg=0):
     print X_train.shape #X is D*N
     xxt = X_train.dot(X_train.T) #D*D
     print("Finished X*X^T")
-    A = xxt + reg*np.eye(xtx.shape[0]) #D*D
+    A = xxt + reg*np.eye(xxt.shape[0]) #D*D
     print("Finished X*X^T + lambda*I")
     B = X_train.dot(y_train) #D*K
     print("Finished X*y")
