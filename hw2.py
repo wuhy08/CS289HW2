@@ -5,7 +5,7 @@ import scipy
 import time
 
 NUM_CLASSES = 10 #:=K
-SIGMA = 0.05 * np.pi
+SIGMA = 0.005 * np.pi
 D = 2000
 #N = 60000
 #P = 784
