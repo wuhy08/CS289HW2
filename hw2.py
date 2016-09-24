@@ -21,14 +21,14 @@ def load_dataset():
 
 def train(X_train, y_train, reg=0):
     ''' Build a model from X_train -> y_train '''
-    print X_train.shape
-    xtx = X_train.dot(X_train.T)
+    print X_train.shape #X is D*N
+    xxt = X_train.dot(X_train.T) #D*D
     print("Finished X*X^T")
-    A = xtx + reg*np.eye(xtx.shape[0])
+    A = xxt + reg*np.eye(xtx.shape[0]) #D*D
     print("Finished X*X^T + lambda*I")
-    B = X_train.dot(y_train)
+    B = X_train.dot(y_train) #D*K
     print("Finished X*y")
-    return scipy.linalg.solve(A, B, sym_pos=True)
+    return scipy.linalg.solve(A, B, sym_pos=True) #D*K
 
 def train_gd(X_train, y_train, alpha=0.1, reg=0, num_iter=10000):
     ''' Build a model from X_train -> y_train using batch gradient descent '''
@@ -50,7 +50,7 @@ def one_hot(labels_train):
 
 def predict(model, X): #model is dxk, X is nxd
     ''' From model and data points, output prediction vectors '''
-    Y = X.dot(model) #n*k matrix
+    Y = X.T.dot(model) #n*k matrix
     data_length = Y.shape[0]
     label_train = np.zeros(data_length)
     for data_index in range(data_length):
