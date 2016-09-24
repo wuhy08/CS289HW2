@@ -81,7 +81,7 @@ if __name__ == "__main__":
     for theReg in range(1,11):
         print("Start Training, Closed Form")
         t = time.time()
-        model = train(X_train, y_train, reg=double(theReg))
+        model = train(X_train, y_train, reg=float(theReg))
         elapsed = time.time() - t
         print("Finished Training, Closed Form")
         print "Time cost: %f" % elapsed
