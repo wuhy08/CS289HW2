@@ -78,7 +78,7 @@ if __name__ == "__main__":
     print("Finished Loading and lifting data")
     print "Time cost: %f" % elapsed
 
-    for theReg in range(1:11):
+    for theReg in range(1,11):
         print("Start Training, Closed Form")
         t = time.time()
         model = train(X_train, y_train, reg=double(theReg))
