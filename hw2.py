@@ -6,7 +6,7 @@ import time
 
 NUM_CLASSES = 10 #:=K
 SIGMA = 1.0 * np.pi
-D = 5000
+D = 10000
 #N = 60000
 #P = 784
 
