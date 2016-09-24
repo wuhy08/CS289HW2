@@ -21,12 +21,13 @@ def load_dataset():
 
 def train(X_train, y_train, reg=0):
     ''' Build a model from X_train -> y_train '''
-    xtx = X_train.T.dot(X_train)
-    print("Finished X^T*X")
+    print X_train.shape
+    xtx = X_train.dot(X_train.T)
+    print("Finished X*X^T")
     A = xtx + reg*np.eye(xtx.shape[0])
-    print("Finished X^T*X + lambda*I")
-    B = X_train.T.dot(y_train)
-    print("Finished X^T*y")
+    print("Finished X*X^T + lambda*I")
+    B = X_train.dot(y_train)
+    print("Finished X*y")
     return scipy.linalg.solve(A, B, sym_pos=True)
 
 def train_gd(X_train, y_train, alpha=0.1, reg=0, num_iter=10000):
@@ -58,11 +59,11 @@ def predict(model, X): #model is dxk, X is nxd
 
 def phi(X):
     ''' Featurize the inputs using random Fourier features '''
-    P = X.shape[1]
+    P = X.shape[1] #N*P
     N = X.shape[0]
-    G = np.random.normal(loc = 0.0, scale = SIGMA, size = (P, D))
-    b = np.random.uniform(low = 0.0, high = 2 * np.pi, size = (D, 1))
-    output = np.cos(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N))))
+    G = np.random.normal(loc = 0.0, scale = SIGMA, size = (P, D)) #P*D
+    b = np.random.uniform(low = 0.0, high = 2 * np.pi, size = (D, 1)) #D*1
+    output = np.cos(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))) #D*N
     return output
 
 
