@@ -78,22 +78,23 @@ if __name__ == "__main__":
     print("Finished Loading and lifting data")
     print "Time cost: %f" % elapsed
 
+    for theReg in range(1:11):
+        print("Start Training, Closed Form")
+        t = time.time()
+        model = train(X_train, y_train, reg=double(theReg))
+        elapsed = time.time() - t
+        print("Finished Training, Closed Form")
+        print "Time cost: %f" % elapsed
+        print("Start Predicting, Closed Form")
+        t = time.time()
+        pred_labels_train = predict(model, X_train)
+        pred_labels_test = predict(model, X_test)
+        elapsed = time.time() - t
+        print("Finished Prediction, Closed Form")
+        print("Closed form solution")
+        print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
+        print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
 
-    print("Start Training, Closed Form")
-    t = time.time()
-    model = train(X_train, y_train, reg=1.0)
-    elapsed = time.time() - t
-    print("Finished Training, Closed Form")
-    print "Time cost: %f" % elapsed
-    print("Start Predicting, Closed Form")
-    t = time.time()
-    pred_labels_train = predict(model, X_train)
-    pred_labels_test = predict(model, X_test)
-    elapsed = time.time() - t
-    print("Finished Prediction, Closed Form")
-    print("Closed form solution")
-    print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
-    print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
 
     # model = train_gd(X_train, y_train, alpha=1e-3, reg=0.1, num_iter=20000)
     # pred_labels_train = predict(model, X_train)
