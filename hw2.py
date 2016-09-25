@@ -59,7 +59,7 @@ def predict(model, X): #model is dxk, X is d*n
 
 def phi(X, G, B):
     ''' Featurize the inputs using random Fourier features '''
-    return np.cos(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))) #D*N
+    return np.cos(np.dot(G.T, X.T) + np.dot(B, np.ones((1, X.shape[0])))) #D*N
 
 def genG(row, col):
     return np.random.normal(loc = 0.0, scale = SIGMA, size = (row, col)) #row * col
