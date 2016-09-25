@@ -63,7 +63,7 @@ def phi(X):
     N = X.shape[0]
     G = np.random.normal(loc = 0.0, scale = SIGMA, size = (P, D)) #P*D
     b = np.random.uniform(low = 0.0, high = np.pi, size = (D, 1)) #D*1
-    output = np.vstack((np.cos(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))), X.T ))#D*N
+    output = np.vstack((2*np.cos(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))), X.T ))#D*N
     return output
 
 
