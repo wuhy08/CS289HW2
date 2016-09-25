@@ -30,9 +30,9 @@ def train(X_train, y_train, reg=0):
     print("Finished X*y")
     return scipy.linalg.inv(A).dot(B)#D*K
 
-def train_gd(X, y, alpha=0.1, reg=0, num_iter=10000, ini = None):
+def train_gd(X, y, alpha=0.1, reg=0, num_iter=10000, ini = np.array([])):
     ''' Build a model from X_train -> y_train using batch gradient descent '''
-    if not ini:
+    if not ini.any():
         newModel = np.zeros(X.shape[0], NUM_CLASSES)
     else:
         newModel = ini
