@@ -62,7 +62,7 @@ def phi(X):
     P = X.shape[1] #N*P
     N = X.shape[0]
     G = np.random.normal(loc = 0.0, scale = SIGMA, size = (P, D)) #P*D
-    b = np.random.uniform(low = 0.0, high = 2 * np.pi, size = (D, 1)) #D*1
+    b = np.random.uniform(low = 0.0, high = np.pi, size = (D, 1)) #D*1
     output = np.cos(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))) #D*N
     return output
 
