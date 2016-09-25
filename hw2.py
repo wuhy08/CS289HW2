@@ -5,7 +5,7 @@ import scipy
 import time
 
 NUM_CLASSES = 10 #:=K
-SIGMA = 50 * np.pi
+SIGMA = 500 * np.pi
 D = 5000
 #N = 60000
 #P = 784
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
     print("Start Training, Closed Form")
     t = time.time()
-    model = train(X_train, y_train, reg=10000)
+    model = train(X_train, y_train, reg=0)
     elapsed = time.time() - t
     print("Finished Training, Closed Form")
     print "Time cost: %f" % elapsed
