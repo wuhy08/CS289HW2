@@ -5,7 +5,7 @@ import scipy
 import time
 
 NUM_CLASSES = 10 #:=K
-SIGMA = 500 * np.pi
+SIGMA = np.pi
 D = 5000
 #N = 60000
 #P = 784
@@ -28,7 +28,7 @@ def train(X_train, y_train, reg=0):
     print("Finished X*X^T + lambda*I")
     B = X_train.dot(y_train) #D*K
     print("Finished X*y")
-    return scipy.linalg.solve(A, B, sym_pos=True) #D*K
+    return scipy.linalg.inv(A).dot(B)#D*K
 
 def train_gd(X_train, y_train, alpha=0.1, reg=0, num_iter=10000):
     ''' Build a model from X_train -> y_train using batch gradient descent '''
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
     print("Start Training, Closed Form")
     t = time.time()
-    model = train(X_train, y_train, reg=0)
+    model = train(X_train, y_train, reg=0.1)
     elapsed = time.time() - t
     print("Finished Training, Closed Form")
     print "Time cost: %f" % elapsed
