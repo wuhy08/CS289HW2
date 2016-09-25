@@ -5,7 +5,7 @@ import scipy
 import time
 
 NUM_CLASSES = 10 #:=K
-SIGMA = np.pi
+SIGMA = 0.05 * np.pi
 D = 500
 #N = 60000
 #P = 784
@@ -57,14 +57,16 @@ def predict(model, X): #model is dxk, X is d*n
         label_train[data_index] = np.argmax(Y[data_index,:])
     return label_train
 
-def phi(X):
+def phi(X, G, B):
     ''' Featurize the inputs using random Fourier features '''
-    P = X.shape[1] #N*P
-    N = X.shape[0]
-    G = np.random.normal(loc = 0.0, scale = SIGMA, size = (P, D)) #P*D
-    b = np.random.uniform(low = 0.0, high = np.pi, size = (D, 1)) #D*1
-    output = np.vstack((np.cos(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))), X.T ))#D*N
-    return output
+    return np.cos(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))) #D*N
+
+def genG(row, col):
+    return np.random.normal(loc = 0.0, scale = SIGMA, size = (row, col)) #row * col
+
+def genB(row):
+    return np.random.uniform(low = 0.0, high = np.pi, size = (row, 1)) #row * 1
+
 
 
 if __name__ == "__main__":
@@ -73,7 +75,10 @@ if __name__ == "__main__":
     (X_train, labels_train), (X_test, labels_test) = load_dataset()
     y_train = one_hot(labels_train)
     y_test = one_hot(labels_test)
-    X_train, X_test = phi(X_train), phi(X_test)
+    P = X_train.shape[1]
+    G = genG(P, D)
+    b = genB(D)
+    X_train, X_test = phi(X_train, G, b), phi(X_test, G, b)
     elapsed = time.time() - t
     print("Finished Loading and lifting data")
     print "Time cost: %f" % elapsed
