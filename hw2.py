@@ -30,8 +30,18 @@ def train(X_train, y_train, reg=0):
     print("Finished X*y")
     return scipy.linalg.inv(A).dot(B)#D*K
 
-def train_gd(X_train, y_train, alpha=0.1, reg=0, num_iter=10000):
+def train_gd(X, y, alpha=0.1, reg=0, num_iter=10000, ini = None):
     ''' Build a model from X_train -> y_train using batch gradient descent '''
+    if not ini:
+        newModel = np.zeros(X.shape[0], NUM_CLASSES)
+    else:
+        newModel = ini
+    for iter in range(num_iter):
+        oldModel = newModel
+        gradient = X.dot(X.T).dot(oldModel) - X.dot(y) + reg * oldModel
+        newModel = oldModel - alpha * gradient
+    return newModel
+
     return np.zeros((X_train.shape[1], NUM_CLASSES))
 
 def train_sgd(X_train, y_train, alpha=0.1, reg=0, num_iter=10000):
@@ -85,27 +95,31 @@ if __name__ == "__main__":
 
     print("Start Training, Closed Form")
     t = time.time()
-    model = train(X_train, y_train, reg=10)
+    model_CF = train(X_train, y_train, reg=10)
     elapsed = time.time() - t
     print("Finished Training, Closed Form")
     print "Time cost: %f" % elapsed
     print("Start Predicting, Closed Form")
     t = time.time()
-    pred_labels_train = predict(model, X_train)
-    pred_labels_test = predict(model, X_test)
+    pred_labels_train = predict(model_CF, X_train)
+    pred_labels_test = predict(model_CF, X_test)
     elapsed = time.time() - t
     print("Finished Prediction, Closed Form")
     print("Closed form solution")
     print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
     print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
 
-
-    # model = train_gd(X_train, y_train, alpha=1e-3, reg=0.1, num_iter=20000)
-    # pred_labels_train = predict(model, X_train)
-    # pred_labels_test = predict(model, X_test)
-    # print("Batch gradient descent")
-    # print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
-    # print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
+    print("Start Training, Gradient Descent")
+    t = time.time()
+    model = train_gd(X_train, y_train, alpha=1e-3, reg=0.1, num_iter=10, ini = model_CF)
+    print("Finished Training, Gradient Descent")
+    print "Time cost: %f" % elapsed
+    print("Start Predicting, Gradient Descent")
+    pred_labels_train = predict(model, X_train)
+    pred_labels_test = predict(model, X_test)
+    print("Batch gradient descent")
+    print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
+    print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
 
     # model = train_sgd(X_train, y_train, alpha=1e-3, reg=0.1, num_iter=100000)
     # pred_labels_train = predict(model, X_train)
