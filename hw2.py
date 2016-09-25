@@ -6,7 +6,7 @@ import time
 
 NUM_CLASSES = 10 #:=K
 SIGMA = np.pi
-D = 2000
+D = 1000
 #N = 60000
 #P = 784
 
@@ -63,7 +63,7 @@ def phi(X):
     N = X.shape[0]
     G = np.random.normal(loc = 0.0, scale = SIGMA, size = (P, D)) #P*D
     b = np.random.uniform(low = 0.0, high = np.pi, size = (D, 1)) #D*1
-    output = np.cos(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))) #D*N
+    output = np.sin(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))) #D*N
     return output
 
 
