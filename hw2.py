@@ -41,6 +41,7 @@ def train_gd(X, y, alpha=0.1, reg=0, num_iter=10000, ini = np.array([])):
     xxt = X.dot(X.T)
     xy = X.dot(y)
     for iteration in range(num_iter):
+        print iteration
         oldModel = newModel
         gradient = xxt.dot(oldModel) - xy + reg * oldModel
         newModel = oldModel - alpha * gradient
