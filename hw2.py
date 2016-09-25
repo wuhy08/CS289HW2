@@ -48,7 +48,7 @@ def one_hot(labels_train):
     # y_train will return a nxk matrix, 
     #where n is the number of data points
 
-def predict(model, X): #model is dxk, X is nxd
+def predict(model, X): #model is dxk, X is d*n
     ''' From model and data points, output prediction vectors '''
     Y = X.T.dot(model) #n*k matrix
     data_length = Y.shape[0]
@@ -63,7 +63,7 @@ def phi(X):
     N = X.shape[0]
     G = np.random.normal(loc = 0.0, scale = SIGMA, size = (P, D)) #P*D
     b = np.random.uniform(low = 0.0, high = np.pi, size = (D, 1)) #D*1
-    output = np.sin(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))) #D*N
+    output = np.vstack(np.cos(np.dot(G.T, X.T) + np.dot(b, np.ones((1, N)))), X^T )#D*N
     return output
 
 
