@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     print("Start Training, Gradient Descent")
     t = time.time()
-    model = train_gd(X_train, y_train, alpha=1e-3, reg=0.1, num_iter=1000)
+    model = train_gd(X_train, y_train, alpha=1e-6, reg=0.1, num_iter=1000)
     print("Finished Training, Gradient Descent")
     print "Time cost: %f" % elapsed
     print("Start Predicting, Gradient Descent")
