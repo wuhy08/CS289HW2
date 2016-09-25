@@ -33,7 +33,7 @@ def train(X_train, y_train, reg=0):
 def train_gd(X, y, alpha=0.1, reg=0, num_iter=10000, ini = np.array([])):
     ''' Build a model from X_train -> y_train using batch gradient descent '''
     if not ini.any():
-        newModel = np.zeros(X.shape[0], NUM_CLASSES)
+        newModel = np.zeros((X.shape[0], NUM_CLASSES))
     else:
         newModel = ini
     xxt = X.dot(X.T)
