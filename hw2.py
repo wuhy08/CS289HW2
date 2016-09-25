@@ -34,15 +34,15 @@ def train_gd(X, y, alpha=0.1, reg=0, num_iter=10000, ini = np.array([])):
     ''' Build a model from X_train -> y_train using batch gradient descent '''
     if not ini.any():
         newModel = np.zeros((X.shape[0], NUM_CLASSES))
+        print 1
     else:
         newModel = ini
+        print 2
     xxt = X.dot(X.T)
     xy = X.dot(y)
     for iter in range(num_iter):
         oldModel = newModel
         gradient = xxt.dot(oldModel) - xy + reg * oldModel
-        print oldModel
-        print gradient
         newModel = oldModel - alpha * gradient
     return newModel
 
