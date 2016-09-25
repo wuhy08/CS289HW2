@@ -36,9 +36,11 @@ def train_gd(X, y, alpha=0.1, reg=0, num_iter=10000, ini = np.array([])):
         newModel = np.zeros(X.shape[0], NUM_CLASSES)
     else:
         newModel = ini
+    xxt = X.dot(X.T)
+    xy = X.dot(y)
     for iter in range(num_iter):
         oldModel = newModel
-        gradient = X.dot(X.T).dot(oldModel) - X.dot(y) + reg * oldModel
+        gradient = xxt.dot(oldModel) - xy + reg * oldModel
         newModel = oldModel - alpha * gradient
     return newModel
 
@@ -93,25 +95,25 @@ if __name__ == "__main__":
     print("Finished Loading and lifting data")
     print "Time cost: %f" % elapsed
 
-    print("Start Training, Closed Form")
-    t = time.time()
-    model_CF = train(X_train, y_train, reg=10)
-    elapsed = time.time() - t
-    print("Finished Training, Closed Form")
-    print "Time cost: %f" % elapsed
-    print("Start Predicting, Closed Form")
-    t = time.time()
-    pred_labels_train = predict(model_CF, X_train)
-    pred_labels_test = predict(model_CF, X_test)
-    elapsed = time.time() - t
-    print("Finished Prediction, Closed Form")
-    print("Closed form solution")
-    print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
-    print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
+    # print("Start Training, Closed Form")
+    # t = time.time()
+    # model_CF = train(X_train, y_train, reg=10)
+    # elapsed = time.time() - t
+    # print("Finished Training, Closed Form")
+    # print "Time cost: %f" % elapsed
+    # print("Start Predicting, Closed Form")
+    # t = time.time()
+    # pred_labels_train = predict(model_CF, X_train)
+    # pred_labels_test = predict(model_CF, X_test)
+    # elapsed = time.time() - t
+    # print("Finished Prediction, Closed Form")
+    # print("Closed form solution")
+    # print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
+    # print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
 
     print("Start Training, Gradient Descent")
     t = time.time()
-    model = train_gd(X_train, y_train, alpha=1e-3, reg=0.1, num_iter=10, ini = model_CF)
+    model = train_gd(X_train, y_train, alpha=1e-3, reg=0.1, num_iter=1000)
     print("Finished Training, Gradient Descent")
     print "Time cost: %f" % elapsed
     print("Start Predicting, Gradient Descent")
