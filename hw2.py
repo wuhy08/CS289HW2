@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
     print("Start Training, Closed Form")
     t = time.time()
-    model = train(X_train, y_train, reg=10)
+    model = train(X_train, y_train, reg=100)
     elapsed = time.time() - t
     print("Finished Training, Closed Form")
     print "Time cost: %f" % elapsed
